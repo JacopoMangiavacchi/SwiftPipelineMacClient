@@ -8,6 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		EA0BD29D21CDD92A00F80DCB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0BD29C21CDD92A00F80DCB /* main.swift */; };
+		EAEEC22021CDDCCC001F9D02 /* Learner.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEC21A21CDDCCC001F9D02 /* Learner.swift */; };
+		EAEEC22121CDDCCC001F9D02 /* Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEC21B21CDDCCC001F9D02 /* Transformer.swift */; };
+		EAEEC22221CDDCCC001F9D02 /* DataIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEC21C21CDDCCC001F9D02 /* DataIO.swift */; };
+		EAEEC22321CDDCCC001F9D02 /* Classifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEC21D21CDDCCC001F9D02 /* Classifier.swift */; };
+		EAEEC22421CDDCCC001F9D02 /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEC21E21CDDCCC001F9D02 /* FoundationExtensions.swift */; };
+		EAEEC22521CDDCCC001F9D02 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEC21F21CDDCCC001F9D02 /* Pipeline.swift */; };
+		EAEEC22821CDDCE2001F9D02 /* FakeBinaryLearner.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEC22721CDDCE2001F9D02 /* FakeBinaryLearner.swift */; };
+		EAEEC23021CDDCF7001F9D02 /* LogisticRegressionLearner.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEC22A21CDDCF7001F9D02 /* LogisticRegressionLearner.swift */; };
+		EAEEC23121CDDCF7001F9D02 /* LogisticRegression.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEC22C21CDDCF7001F9D02 /* LogisticRegression.swift */; };
+		EAEEC23221CDDCF7001F9D02 /* VectorOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEC22D21CDDCF7001F9D02 /* VectorOperations.swift */; };
+		EAEEC23321CDDCF7001F9D02 /* MatrixOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEC22E21CDDCF7001F9D02 /* MatrixOperations.swift */; };
+		EAEEC23421CDDCF7001F9D02 /* EuclideanDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEC22F21CDDCF7001F9D02 /* EuclideanDistance.swift */; };
+		EAEEC24121CDDCFF001F9D02 /* AddFeaturizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEC23721CDDCFF001F9D02 /* AddFeaturizer.swift */; };
+		EAEEC24221CDDCFF001F9D02 /* FakeMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEC23821CDDCFF001F9D02 /* FakeMapper.swift */; };
+		EAEEC24321CDDCFF001F9D02 /* BinaryDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEC23B21CDDCFF001F9D02 /* BinaryDictionary.swift */; };
+		EAEEC24421CDDCFF001F9D02 /* BOW.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEC23C21CDDCFF001F9D02 /* BOW.swift */; };
+		EAEEC24521CDDCFF001F9D02 /* MultiDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEC23D21CDDCFF001F9D02 /* MultiDictionary.swift */; };
+		EAEEC24621CDDCFF001F9D02 /* MultiRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEC23E21CDDCFF001F9D02 /* MultiRegex.swift */; };
+		EAEEC24721CDDCFF001F9D02 /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEEC24021CDDCFF001F9D02 /* Tokenizer.swift */; };
+		EAEEC24A21CDDD29001F9D02 /* libswiftCreateML.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EAEEC24921CDDD29001F9D02 /* libswiftCreateML.dylib */; };
+		EAEEC24C21CDDD34001F9D02 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAEEC24B21CDDD34001F9D02 /* CoreML.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +46,28 @@
 /* Begin PBXFileReference section */
 		EA0BD29921CDD92A00F80DCB /* SwiftPipelineMacClient */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftPipelineMacClient; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA0BD29C21CDD92A00F80DCB /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		EAE666DC21CDDAE40051B01A /* semeval.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = semeval.json; path = SwiftPipelineMacClient/semeval.json; sourceTree = "<group>"; };
+		EAEEC21A21CDDCCC001F9D02 /* Learner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Learner.swift; path = SwiftPipelineMacClient/Core/Learner.swift; sourceTree = SOURCE_ROOT; };
+		EAEEC21B21CDDCCC001F9D02 /* Transformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Transformer.swift; path = SwiftPipelineMacClient/Core/Transformer.swift; sourceTree = SOURCE_ROOT; };
+		EAEEC21C21CDDCCC001F9D02 /* DataIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataIO.swift; path = SwiftPipelineMacClient/Core/DataIO.swift; sourceTree = SOURCE_ROOT; };
+		EAEEC21D21CDDCCC001F9D02 /* Classifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Classifier.swift; path = SwiftPipelineMacClient/Core/Classifier.swift; sourceTree = SOURCE_ROOT; };
+		EAEEC21E21CDDCCC001F9D02 /* FoundationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoundationExtensions.swift; path = SwiftPipelineMacClient/Core/FoundationExtensions.swift; sourceTree = SOURCE_ROOT; };
+		EAEEC21F21CDDCCC001F9D02 /* Pipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Pipeline.swift; path = SwiftPipelineMacClient/Core/Pipeline.swift; sourceTree = SOURCE_ROOT; };
+		EAEEC22721CDDCE2001F9D02 /* FakeBinaryLearner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeBinaryLearner.swift; sourceTree = "<group>"; };
+		EAEEC22A21CDDCF7001F9D02 /* LogisticRegressionLearner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogisticRegressionLearner.swift; sourceTree = "<group>"; };
+		EAEEC22C21CDDCF7001F9D02 /* LogisticRegression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogisticRegression.swift; sourceTree = "<group>"; };
+		EAEEC22D21CDDCF7001F9D02 /* VectorOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VectorOperations.swift; sourceTree = "<group>"; };
+		EAEEC22E21CDDCF7001F9D02 /* MatrixOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixOperations.swift; sourceTree = "<group>"; };
+		EAEEC22F21CDDCF7001F9D02 /* EuclideanDistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EuclideanDistance.swift; sourceTree = "<group>"; };
+		EAEEC23721CDDCFF001F9D02 /* AddFeaturizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFeaturizer.swift; sourceTree = "<group>"; };
+		EAEEC23821CDDCFF001F9D02 /* FakeMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeMapper.swift; sourceTree = "<group>"; };
+		EAEEC23B21CDDCFF001F9D02 /* BinaryDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinaryDictionary.swift; sourceTree = "<group>"; };
+		EAEEC23C21CDDCFF001F9D02 /* BOW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BOW.swift; sourceTree = "<group>"; };
+		EAEEC23D21CDDCFF001F9D02 /* MultiDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiDictionary.swift; sourceTree = "<group>"; };
+		EAEEC23E21CDDCFF001F9D02 /* MultiRegex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiRegex.swift; sourceTree = "<group>"; };
+		EAEEC24021CDDCFF001F9D02 /* Tokenizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokenizer.swift; sourceTree = "<group>"; };
+		EAEEC24921CDDD29001F9D02 /* libswiftCreateML.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftCreateML.dylib; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/libswiftCreateML.dylib; sourceTree = DEVELOPER_DIR; };
+		EAEEC24B21CDDD34001F9D02 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +75,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAEEC24C21CDDD34001F9D02 /* CoreML.framework in Frameworks */,
+				EAEEC24A21CDDD29001F9D02 /* libswiftCreateML.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,8 +86,10 @@
 		EA0BD29021CDD92900F80DCB = {
 			isa = PBXGroup;
 			children = (
+				EAE666DC21CDDAE40051B01A /* semeval.json */,
 				EA0BD29B21CDD92A00F80DCB /* SwiftPipelineMacClient */,
 				EA0BD29A21CDD92A00F80DCB /* Products */,
+				EAEEC24821CDDD29001F9D02 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,9 +104,110 @@
 		EA0BD29B21CDD92A00F80DCB /* SwiftPipelineMacClient */ = {
 			isa = PBXGroup;
 			children = (
+				EAEEC23521CDDCFF001F9D02 /* Transformers */,
+				EAEEC22921CDDCF7001F9D02 /* LogisticRegressionLearner */,
+				EAEEC22621CDDCE2001F9D02 /* Learners */,
+				EAEEC21921CDDCA9001F9D02 /* Core */,
 				EA0BD29C21CDD92A00F80DCB /* main.swift */,
 			);
 			path = SwiftPipelineMacClient;
+			sourceTree = "<group>";
+		};
+		EAEEC21921CDDCA9001F9D02 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				EAEEC21D21CDDCCC001F9D02 /* Classifier.swift */,
+				EAEEC21C21CDDCCC001F9D02 /* DataIO.swift */,
+				EAEEC21E21CDDCCC001F9D02 /* FoundationExtensions.swift */,
+				EAEEC21A21CDDCCC001F9D02 /* Learner.swift */,
+				EAEEC21F21CDDCCC001F9D02 /* Pipeline.swift */,
+				EAEEC21B21CDDCCC001F9D02 /* Transformer.swift */,
+			);
+			name = Core;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		EAEEC22621CDDCE2001F9D02 /* Learners */ = {
+			isa = PBXGroup;
+			children = (
+				EAEEC22721CDDCE2001F9D02 /* FakeBinaryLearner.swift */,
+			);
+			path = Learners;
+			sourceTree = "<group>";
+		};
+		EAEEC22921CDDCF7001F9D02 /* LogisticRegressionLearner */ = {
+			isa = PBXGroup;
+			children = (
+				EAEEC22A21CDDCF7001F9D02 /* LogisticRegressionLearner.swift */,
+				EAEEC22B21CDDCF7001F9D02 /* Accellerate-LR */,
+			);
+			path = LogisticRegressionLearner;
+			sourceTree = "<group>";
+		};
+		EAEEC22B21CDDCF7001F9D02 /* Accellerate-LR */ = {
+			isa = PBXGroup;
+			children = (
+				EAEEC22C21CDDCF7001F9D02 /* LogisticRegression.swift */,
+				EAEEC22D21CDDCF7001F9D02 /* VectorOperations.swift */,
+				EAEEC22E21CDDCF7001F9D02 /* MatrixOperations.swift */,
+				EAEEC22F21CDDCF7001F9D02 /* EuclideanDistance.swift */,
+			);
+			path = "Accellerate-LR";
+			sourceTree = "<group>";
+		};
+		EAEEC23521CDDCFF001F9D02 /* Transformers */ = {
+			isa = PBXGroup;
+			children = (
+				EAEEC23621CDDCFF001F9D02 /* Sample */,
+				EAEEC23921CDDCFF001F9D02 /* TextTransformers */,
+			);
+			path = Transformers;
+			sourceTree = "<group>";
+		};
+		EAEEC23621CDDCFF001F9D02 /* Sample */ = {
+			isa = PBXGroup;
+			children = (
+				EAEEC23721CDDCFF001F9D02 /* AddFeaturizer.swift */,
+				EAEEC23821CDDCFF001F9D02 /* FakeMapper.swift */,
+			);
+			path = Sample;
+			sourceTree = "<group>";
+		};
+		EAEEC23921CDDCFF001F9D02 /* TextTransformers */ = {
+			isa = PBXGroup;
+			children = (
+				EAEEC23A21CDDCFF001F9D02 /* Featurizers */,
+				EAEEC23F21CDDCFF001F9D02 /* Mappers */,
+			);
+			path = TextTransformers;
+			sourceTree = "<group>";
+		};
+		EAEEC23A21CDDCFF001F9D02 /* Featurizers */ = {
+			isa = PBXGroup;
+			children = (
+				EAEEC23B21CDDCFF001F9D02 /* BinaryDictionary.swift */,
+				EAEEC23C21CDDCFF001F9D02 /* BOW.swift */,
+				EAEEC23D21CDDCFF001F9D02 /* MultiDictionary.swift */,
+				EAEEC23E21CDDCFF001F9D02 /* MultiRegex.swift */,
+			);
+			path = Featurizers;
+			sourceTree = "<group>";
+		};
+		EAEEC23F21CDDCFF001F9D02 /* Mappers */ = {
+			isa = PBXGroup;
+			children = (
+				EAEEC24021CDDCFF001F9D02 /* Tokenizer.swift */,
+			);
+			path = Mappers;
+			sourceTree = "<group>";
+		};
+		EAEEC24821CDDD29001F9D02 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EAEEC24B21CDDD34001F9D02 /* CoreML.framework */,
+				EAEEC24921CDDD29001F9D02 /* libswiftCreateML.dylib */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,7 +267,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAEEC22321CDDCCC001F9D02 /* Classifier.swift in Sources */,
+				EAEEC24721CDDCFF001F9D02 /* Tokenizer.swift in Sources */,
+				EAEEC22521CDDCCC001F9D02 /* Pipeline.swift in Sources */,
+				EAEEC23321CDDCF7001F9D02 /* MatrixOperations.swift in Sources */,
+				EAEEC24221CDDCFF001F9D02 /* FakeMapper.swift in Sources */,
+				EAEEC23221CDDCF7001F9D02 /* VectorOperations.swift in Sources */,
+				EAEEC24121CDDCFF001F9D02 /* AddFeaturizer.swift in Sources */,
+				EAEEC24621CDDCFF001F9D02 /* MultiRegex.swift in Sources */,
+				EAEEC23421CDDCF7001F9D02 /* EuclideanDistance.swift in Sources */,
+				EAEEC24521CDDCFF001F9D02 /* MultiDictionary.swift in Sources */,
+				EAEEC23121CDDCF7001F9D02 /* LogisticRegression.swift in Sources */,
 				EA0BD29D21CDD92A00F80DCB /* main.swift in Sources */,
+				EAEEC22421CDDCCC001F9D02 /* FoundationExtensions.swift in Sources */,
+				EAEEC22221CDDCCC001F9D02 /* DataIO.swift in Sources */,
+				EAEEC22121CDDCCC001F9D02 /* Transformer.swift in Sources */,
+				EAEEC24321CDDCFF001F9D02 /* BinaryDictionary.swift in Sources */,
+				EAEEC24421CDDCFF001F9D02 /* BOW.swift in Sources */,
+				EAEEC23021CDDCF7001F9D02 /* LogisticRegressionLearner.swift in Sources */,
+				EAEEC22021CDDCCC001F9D02 /* Learner.swift in Sources */,
+				EAEEC22821CDDCE2001F9D02 /* FakeBinaryLearner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +344,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/  \n";
+				LIBRARY_SEARCH_PATHS = (
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/,
+					"\n/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/",
+					"
+",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -232,6 +406,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/  \n";
+				LIBRARY_SEARCH_PATHS = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/  \n";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
