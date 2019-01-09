@@ -72,16 +72,18 @@ public struct BOW : TransformProtocol, Codable {
     private let keyType: KeyType
     private let ngramLength: Int
     private let valueType: ValueType
+    private let normalize: Bool //TODO: make enum with L1 and L2 cases
 
     //Metadata: NB access on write must be protected for concurrency access if this is a .Mapper
     public var vocabulary: [String : DataFloat]
 
-    public init(name: String = "BOW", keyType: KeyType = .WordGram, ngramLength: Int = 1, valueType: ValueType = .TFIDF(minCount: 1)) {
+    public init(name: String = "BOW", keyType: KeyType = .WordGram, ngramLength: Int = 1, valueType: ValueType = .TFIDF(minCount: 1), normalize: Bool = false) {
         self.name = name
         self.transformerType = .Featurizer
         self.keyType = keyType
         self.ngramLength = ngramLength
         self.valueType = valueType
+        self.normalize = normalize
         self.vocabulary = [String : DataFloat]()
     }
     
@@ -163,7 +165,7 @@ public struct BOW : TransformProtocol, Codable {
             vectors.append(vector)
         }
         
-        return L2Normalize(vectors: vectors)
+        return normalize ? L2Normalize(vectors: vectors) : vectors
     }
 
     private mutating func TFIDFGenerateVocabulary(input: MatrixDataString, minCount: Int) -> MatrixDataFloat {
@@ -207,10 +209,10 @@ public struct BOW : TransformProtocol, Codable {
             vectors.append(vector)
             docId += 1
         }
-        
+
         self.vocabulary = Dictionary(uniqueKeysWithValues: bow.map{ key, value in (key, DataFloat(value.0)) })
 
-        return L2Normalize(vectors: vectors)
+        return normalize ? L2Normalize(vectors: vectors) : vectors
     }
 
     private func TFIDFUseVocabulary(input: MatrixDataString) -> MatrixDataFloat {
@@ -229,7 +231,7 @@ public struct BOW : TransformProtocol, Codable {
             vectors.append(vector)
         }
         
-        return L2Normalize(vectors: vectors)
+        return normalize ? L2Normalize(vectors: vectors) : vectors
     }
 
     private func TFIDF(numberOfDocs: DataFloat, datasetFreq: DataFloat, docFreq: DataFloat) -> DataFloat {
