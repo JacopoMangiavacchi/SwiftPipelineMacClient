@@ -43,50 +43,55 @@ let pipeline = Pipeline(transformers: [//FastText(fastTextModelPath: "/Jacopo/fa
 //TRAIN
 let features = try! pipeline.transformed(input: data).concatenatedFeatures()
 let dataCount = features.count
-let featuresCount = features[0].count
-let labelCount = labels.count
+//let featuresCount = features[0].count
+//let labelCount = labels.count
+//
+//var featureArray = [[Double]](repeating: [Double](), count: featuresCount)
+//
+//for dc in 0..<dataCount {
+//    for f in 0..<featuresCount {
+//        featureArray[f].append(Double(features[dc][f]))
+//    }
+//}
+//
+//var dictionary = [String : MLDataValueConvertible]()
+//dictionary["labels"] = labels
+//
+//for f in 0..<featuresCount {
+//    dictionary[String(f)] = featureArray[f]
+//}
+//
+//let table = try! MLDataTable(dictionary: dictionary)
+//let classifier = try! MLLogisticRegressionClassifier(trainingData: table, targetColumn: "labels")
+//
+//
+//let model = classifier.model
+//
+//
+////PREDICT //TODO: Check MLArrayBatchProvider
+//func predict(predictionText: String) {
+//    let predictionfeatures = try! pipeline.transformed(input: [predictionText]).concatenatedFeatures()
+//    var predictionDictionary = [String : Any]()
+//    for f in 0..<featuresCount {
+//        predictionDictionary[String(f)] = Double(predictionfeatures[0][f])
+//    }
+//
+//    let predictions = try! model.prediction(from: MLDictionaryFeatureProvider(dictionary: predictionDictionary))
+//
+//    //print(predictions.featureNames)
+//    print(predictions.featureValue(for: "labels")!)
+//    print(predictions.featureValue(for: "labelsProbability")!)
+//}
+//
+//predict(predictionText: "I hate driving in the traffic")
+//predict(predictionText: "I love go to the cinema")
+//predict(predictionText: "fuck you asshole")
+//predict(predictionText: "so cute lovely")
 
-var featureArray = [[Double]](repeating: [Double](), count: featuresCount)
-
-for dc in 0..<dataCount {
-    for f in 0..<featuresCount {
-        featureArray[f].append(Double(features[dc][f]))
-    }
-}
-
-var dictionary = [String : MLDataValueConvertible]()
-dictionary["labels"] = labels
-
-for f in 0..<featuresCount {
-    dictionary[String(f)] = featureArray[f]
-}
-
-let table = try! MLDataTable(dictionary: dictionary)
-let classifier = try! MLLogisticRegressionClassifier(trainingData: table, targetColumn: "labels")
 
 
-let model = classifier.model
+// ------------------------
 
-
-//PREDICT //TODO: Check MLArrayBatchProvider
-func predict(predictionText: String) {
-    let predictionfeatures = try! pipeline.transformed(input: [predictionText]).concatenatedFeatures()
-    var predictionDictionary = [String : Any]()
-    for f in 0..<featuresCount {
-        predictionDictionary[String(f)] = Double(predictionfeatures[0][f])
-    }
-    
-    let predictions = try! model.prediction(from: MLDictionaryFeatureProvider(dictionary: predictionDictionary))
-    
-    //print(predictions.featureNames)
-    print(predictions.featureValue(for: "labels")!)
-    print(predictions.featureValue(for: "labelsProbability")!)
-}
-
-predict(predictionText: "I hate driving in the traffic")
-predict(predictionText: "I love go to the cinema")
-predict(predictionText: "fuck you asshole")
-predict(predictionText: "so cute lovely")
 
 
 //var classifier = Classifier(pipeline: pipeline,

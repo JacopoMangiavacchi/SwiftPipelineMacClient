@@ -13,7 +13,7 @@ public let defaultSplitRate:Float = 0.3
 
 // Pipeline object to chain and execute several Mappar and Featurizer tranformers
 public struct Pipeline : Codable {
-    public var features: [DataString : MatrixDataFloat]
+    public var features: [DataString : MatrixDataIO]
     public var splitRate: Float
     public var minNumberOfRowInSplit: Int
     private(set) var transformers: [TransformProtocol]
@@ -37,7 +37,7 @@ public struct Pipeline : Codable {
     
     public init() {
         self.transformers = [TransformProtocol]()
-        self.features = [DataString : MatrixDataFloat]()
+        self.features = [DataString : MatrixDataIO]()
         self.splitRate = defaultSplitRate
         self.minNumberOfRowInSplit = defaultMinNumberOfRowInSplit
         self.transformersJsonMap = [String : String]()
@@ -45,7 +45,7 @@ public struct Pipeline : Codable {
 
     public init(transformers: [TransformProtocol], splitRate: Float = defaultSplitRate, minNumberOfRowInSplit: Int = defaultMinNumberOfRowInSplit) { 
         self.transformers = transformers
-        self.features = [DataString : MatrixDataFloat]()
+        self.features = [DataString : MatrixDataIO]()
         self.splitRate = splitRate
         self.minNumberOfRowInSplit = minNumberOfRowInSplit
         self.transformersJsonMap = [String : String]()
@@ -57,7 +57,7 @@ public struct Pipeline : Codable {
         self.minNumberOfRowInSplit = try values.decode(Int.self, forKey: .minNumberOfRowInSplit)
         self.transformersJsonMap = try values.decode([String : String].self, forKey: .transformersJsonMap)
         self.transformers = [TransformProtocol]()
-        self.features = [DataString : MatrixDataFloat]()
+        self.features = [DataString : MatrixDataIO]()
 
         //NB Inject internal Transformers only - If pipeline use external transformers client need to explicity call injectTransformers() after decode and pass the external transformers type/name list
         try injectTransformers(transformerMap: [DataString : TransformProtocol.Type]())
@@ -177,7 +177,7 @@ public struct Pipeline : Codable {
             //print("--- Executing \(transformers[fromPos + iteration].name) Featurizer")
             do {
                 let transformResult = try transformers[fromPos + iteration].transform(input: input, generateMetadata: generateMetadata)
-                serialQueue.sync { 
+                serialQueue.sync {
                     arrayFeatures[iteration] = transformResult
                 }
             }
@@ -193,7 +193,7 @@ public struct Pipeline : Codable {
 
         //Copy arrayFeatures to features
         for transformerPos in fromPos..<toPos {
-            features[transformers[transformerPos].name] = arrayFeatures[transformerPos - fromPos].toMatrixDataFlow()
+            features[transformers[transformerPos].name] = arrayFeatures[transformerPos - fromPos]
         }
     }
 
@@ -243,18 +243,18 @@ public struct Pipeline : Codable {
         return output
     }
 
-    public func concatenatedFeatures(selectedFeatures: VectorDataString? = nil) throws -> MatrixDataFloat {
-        guard !features.isEmpty else { return MatrixDataFloat() }
-        guard let countOfRecords = features.first?.value.count else { return MatrixDataFloat() }
+    public func concatenatedFeatures(selectedFeatures: VectorDataString? = nil) throws -> MatrixDataIO {
+        guard !features.isEmpty else { return MatrixDataIO() }
+        guard let countOfRecords = features.first?.value.count else { return MatrixDataIO() }
 
         //Filter Selected Features
         var selFeatures = features
         if let selectedFeatures = selectedFeatures {
-            selFeatures = selectedFeatures.reduce(into: [DataString: MatrixDataFloat]()) { $0[$1] = features[$1] }
+            selFeatures = selectedFeatures.reduce(into: [DataString: MatrixDataIO]()) { $0[$1] = features[$1] }
         }
 
         //Concatenate Features DataFloat vectors
-        var flatFeatures:MatrixDataFloat = MatrixDataFloat(repeating: VectorDataFloat(), count: countOfRecords)
+        var flatFeatures:MatrixDataIO = MatrixDataIO(repeating: VectorDataIO(), count: countOfRecords)
         for ff in selFeatures.values {
             if ff.count != countOfRecords {
                 throw TransformerError.FeaturesVectorOfDifferentShape

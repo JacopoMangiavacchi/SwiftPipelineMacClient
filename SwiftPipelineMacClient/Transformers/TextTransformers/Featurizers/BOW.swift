@@ -198,15 +198,12 @@ public struct BOW : TransformProtocol, Codable {
         var vectors = MatrixDataFloat()
         docId = 0
         for doc in input {
-            let docSet = Set(doc)
-            
-            var vector = VectorDataFloat()
-            for (word, touple) in bow {
-                var tfidf:DataFloat = 0
-                if docSet.contains(word) {
-                    tfidf = TFIDF(numberOfDocs: DataFloat(input.count), datasetFreq: DataFloat(touple.0), docFreq: DataFloat(touple.1[docId]!))
+            var vector = VectorDataFloat(repeating: 0.0, count: bow.count)
+            for word in Set(doc) {
+                if let touple = bow[word] {
+                    let tfidf:DataFloat = TFIDF(numberOfDocs: DataFloat(input.count), datasetFreq: DataFloat(touple.0), docFreq: DataFloat(touple.1[docId]!))
+                    vector[0] = tfidf
                 }
-                vector.append(tfidf)
             }
             vectors.append(vector)
             docId += 1
