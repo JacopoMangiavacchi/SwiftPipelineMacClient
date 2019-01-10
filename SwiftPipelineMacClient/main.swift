@@ -46,12 +46,6 @@ let dataCount = features.count
 let featuresCount = features[0].count
 let labelCount = labels.count
 
-//var featureArray = [[Double]](repeating: [Double](), count: featuresCount)
-//for dc in 0..<dataCount {
-//    for f in 0..<featuresCount {
-//        featureArray[f].append(Double(features[dc][f]))
-//    }
-//}
 var featureArray = [[Double]](repeating: [Double](repeating: 0.0, count: dataCount), count: featuresCount)
 for dc in 0..<dataCount {
     for f in 0..<featuresCount {
@@ -59,15 +53,27 @@ for dc in 0..<dataCount {
     }
 }
 
-var dictionary = [String : MLDataValueConvertible]()
-dictionary["labels"] = labels
-for f in 0..<featuresCount {
-    dictionary[String(f)] = featureArray[f]
+//var dictionary = [String : MLDataValueConvertible]()
+//dictionary["labels"] = labels
+//for f in 0..<featuresCount {
+//    dictionary[String(f)] = featureArray[f]
+//}
+//let table = try! MLDataTable(dictionary: dictionary)
+
+//var table = MLDataTable()
+//for f in 0..<featureArray.count {
+//    table.addColumn(MLDataColumn(featureArray[f]), named: String(f))
+//}
+//table.addColumn(MLDataColumn(labels), named: "labels")
+
+var namedColumns = [String : MLUntypedColumn]()
+for f in 0..<featureArray.count {
+    namedColumns[String(f)] = MLUntypedColumn(featureArray[f])
 }
+namedColumns["labels"] = MLUntypedColumn(labels)
+let table = try! MLDataTable(namedColumns: namedColumns)
 
-let table = try! MLDataTable(dictionary: dictionary)
 let classifier = try! MLLogisticRegressionClassifier(trainingData: table, targetColumn: "labels")
-
 
 let model = classifier.model
 
