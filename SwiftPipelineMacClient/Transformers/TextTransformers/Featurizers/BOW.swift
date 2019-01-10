@@ -77,7 +77,7 @@ public struct BOW : TransformProtocol, Codable {
     //Metadata: NB access on write must be protected for concurrency access if this is a .Mapper
     public var vocabulary: [String : DataFloat]
 
-    public init(name: String = "BOW", keyType: KeyType = .WordGram, ngramLength: Int = 1, valueType: ValueType = .TFIDF(minCount: 1), normalize: Bool = false) {
+    public init(name: String = "BOW", keyType: KeyType = .WordGram, ngramLength: Int = 1, valueType: ValueType = .TFIDF(minCount: 1), normalize: Bool = true) {
         self.name = name
         self.transformerType = .Featurizer
         self.keyType = keyType
