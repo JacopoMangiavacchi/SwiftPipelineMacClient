@@ -243,9 +243,9 @@ public struct Pipeline : Codable {
         return output
     }
 
-    public func concatenatedFeatures(selectedFeatures: VectorDataString? = nil) throws -> MatrixDataIO {
-        guard !features.isEmpty else { return MatrixDataIO() }
-        guard let countOfRecords = features.first?.value.count else { return MatrixDataIO() }
+    public func concatenatedFeatures(selectedFeatures: VectorDataString? = nil) throws -> MatrixDataFloat {
+        guard !features.isEmpty else { return MatrixDataFloat() }
+        guard let countOfRecords = features.first?.value.count else { return MatrixDataFloat() }
 
         //Filter Selected Features
         var selFeatures = features
@@ -254,13 +254,14 @@ public struct Pipeline : Codable {
         }
 
         //Concatenate Features DataFloat vectors
-        var flatFeatures:MatrixDataIO = MatrixDataIO(repeating: VectorDataIO(), count: countOfRecords)
+        var flatFeatures:MatrixDataFloat = MatrixDataFloat(repeating: VectorDataFloat(), count: countOfRecords)
         for ff in selFeatures.values {
+            let fff = ff.toMatrixDataFlow()
             if ff.count != countOfRecords {
                 throw TransformerError.FeaturesVectorOfDifferentShape
             }
             for i in 0..<countOfRecords {
-                flatFeatures[i] += ff[i]
+                flatFeatures[i] += fff[i]
             }
         }
 
