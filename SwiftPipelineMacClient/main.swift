@@ -31,8 +31,8 @@ let pipeline = Pipeline(transformers: [//FastText(fastTextModelPath: "/Jacopo/fa
                                             BOW(name: "Words"),
     //                                        BOW(name: "WordGrams3", keyType: .WordGram, ngramLength: 3, valueType: .TFIDF(minCount: 1)),
     //                                        BOW(name: "CharGrams5", keyType: .CharGram, ngramLength: 5, valueType: .TFIDF(minCount: 2)),
-    //                                        BOW(name: "HashWords", keyType: .CharGram, ngramLength: 4, valueType: .HashingTrick(algorithm: .DJB2, vectorSize: 5000)),
-    //                                        BOW(name: "HashWords", keyType: .WordGram, ngramLength: 1, valueType: .HashingTrick(algorithm: .DJB2, vectorSize: 800)),
+                                            BOW(name: "HashWords", keyType: .CharGram, ngramLength: 4, valueType: .HashingTrick(algorithm: .DJB2, vectorSize: 5000)),
+                                            BOW(name: "HashWords", keyType: .WordGram, ngramLength: 1, valueType: .HashingTrick(algorithm: .DJB2, vectorSize: 800)),
     //                                        MultiDictionary(words: ["long", "big"]),
     //                                        BinaryDictionary(words: ["long", "big"]),
                                       ],
@@ -41,8 +41,11 @@ let pipeline = Pipeline(transformers: [//FastText(fastTextModelPath: "/Jacopo/fa
 
 
 //TRAIN
-let features = try! pipeline.transformed(input: data).concatenatedFeatures()
-let dataCount = features.count
+let features = try! pipeline.transformed(input: data)
+print("OK")
+
+//let features = try! pipeline.transformed(input: data).concatenatedFeatures()
+//let dataCount = features.count
 //let featuresCount = features[0].count
 //let labelCount = labels.count
 //

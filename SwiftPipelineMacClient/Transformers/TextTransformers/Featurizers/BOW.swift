@@ -92,13 +92,13 @@ public struct BOW : TransformProtocol, Codable {
 
         switch valueType {
         case .HashingTrick(let algorithm, let vectorSize):
-            return HashingTrick(input: nGramMatrix, algorithm: algorithm, vectorSize: vectorSize).toMatrixDataIO()
+            return HashingTrick(input: nGramMatrix, algorithm: algorithm, vectorSize: vectorSize)
         case .TFIDF(let minCount):
             if generateMetadata {
-                return TFIDFGenerateVocabulary(input: nGramMatrix, minCount: minCount).toMatrixDataIO()
+                return TFIDFGenerateVocabulary(input: nGramMatrix, minCount: minCount)
             }
             else{
-                return TFIDFUseVocabulary(input: nGramMatrix).toMatrixDataIO()
+                return TFIDFUseVocabulary(input: nGramMatrix)
             }
         }
     }
@@ -141,7 +141,7 @@ public struct BOW : TransformProtocol, Codable {
         return nGramMatrix
     }
 
-    private mutating func HashingTrick(input: MatrixDataString, algorithm: HashAlgorithm, vectorSize: Int) -> MatrixDataFloat {
+    private mutating func HashingTrick(input: MatrixDataString, algorithm: HashAlgorithm, vectorSize: Int) -> MatrixDataIO {
         // function hashing_vectorizer(features : array of string, N : integer):
         //     x := new vector[N]
         //     for f in features:
@@ -149,16 +149,17 @@ public struct BOW : TransformProtocol, Codable {
         //         x[h mod N] += 1
         //     return x
 
-        var vectors = MatrixDataFloat()
+        var vectors = MatrixDataIO()
         for doc in input {
-            var vector = VectorDataFloat(repeating: 0.0, count: vectorSize)
+            var vector = VectorDataIO(repeating: .DataFloat(value: 0.0), count: vectorSize)
             for word in doc {
                 let h = algorithm == .DJB2 ? word.djb2hash : word.sdbmhash
                 if h < 0 {
                     //print("*** Error hashing word: \(word) -> \(h)")
                 }
                 else {
-                    vector[h % vectorSize] += 1
+                    let pos = h % vectorSize
+                    vector[pos] = .DataFloat(value: vector[pos].toDataFloat()! + 1)
                 }
             }
 
@@ -168,9 +169,10 @@ public struct BOW : TransformProtocol, Codable {
         return normalize ? L2Normalize(vectors: vectors) : vectors
     }
 
-    private mutating func TFIDFGenerateVocabulary(input: MatrixDataString, minCount: Int) -> MatrixDataFloat {
+    private mutating func TFIDFGenerateVocabulary(input: MatrixDataString, minCount: Int) -> MatrixDataIO {
         //Create Temp BOW Dictionary with word frequency in dataset and word frequency per document
-        var bow = [String : (Int, [Int : Int])]()  // token : (freq in dataset, [doc : freq in doc])
+        var bow = [String : (Int, [Int : Int], Int)]()  // token : (freq in dataset, [doc : freq in doc], Position in bow)
+        var pos = 0
         var docId = 0
         for doc in input {
             for word in doc {
@@ -185,7 +187,8 @@ public struct BOW : TransformProtocol, Codable {
                     bow[word] = x
                 }
                 else {
-                    bow[word] = (1, [docId : 1])
+                    bow[word] = (1, [docId : 1], pos)
+                    pos += 1
                 }
             }
             docId += 1
@@ -195,18 +198,14 @@ public struct BOW : TransformProtocol, Codable {
         bow = bow.filter{ $0.value.0 >= minCount }
 
         //Create Features Vectors with BOW TF-IDF values
-        var vectors = MatrixDataFloat()
-        docId = 0
-        for doc in input {
-            var vector = VectorDataFloat(repeating: 0.0, count: bow.count)
-            for word in Set(doc) {
+        var vectors = MatrixDataIO(repeating: VectorDataIO(repeating: .DataFloat(value: 0.0), count: bow.count), count: input.count)
+        for docId in 0..<input.count {
+            for word in Set(input[docId]) {
                 if let touple = bow[word] {
                     let tfidf:DataFloat = TFIDF(numberOfDocs: DataFloat(input.count), datasetFreq: DataFloat(touple.0), docFreq: DataFloat(touple.1[docId]!))
-                    vector[0] = tfidf
+                    vectors[docId][touple.2] = .DataFloat(value: tfidf)
                 }
             }
-            vectors.append(vector)
-            docId += 1
         }
 
         self.vocabulary = Dictionary(uniqueKeysWithValues: bow.map{ key, value in (key, DataFloat(value.0)) })
@@ -214,18 +213,18 @@ public struct BOW : TransformProtocol, Codable {
         return normalize ? L2Normalize(vectors: vectors) : vectors
     }
 
-    private func TFIDFUseVocabulary(input: MatrixDataString) -> MatrixDataFloat {
+    private func TFIDFUseVocabulary(input: MatrixDataString) -> MatrixDataIO {
         //Create Features Vectors with BOW TF-IDF values
-        var vectors = MatrixDataFloat()
+        var vectors = MatrixDataIO()
         for doc in input {
-            var vector = VectorDataFloat()
+            var vector = VectorDataIO()
             for (word, datasetFreq) in self.vocabulary {
                 var tfidf:DataFloat = 0
                 let docFreq = DataFloat(doc.filter({ $0 == word }).count)
                 if docFreq > 0 {
                     tfidf = TFIDF(numberOfDocs: DataFloat(input.count), datasetFreq: datasetFreq, docFreq: docFreq)
                 }
-                vector.append(tfidf)
+                vector.append(.DataFloat(value: tfidf))
             }
             vectors.append(vector)
         }
@@ -237,10 +236,10 @@ public struct BOW : TransformProtocol, Codable {
         return docFreq * (numberOfDocs / (1.0 + docFreq)) //log(numberOfDocs / (1.0 + docFreq))
     }
 
-    private func L2Normalize(vectors: MatrixDataFloat) -> MatrixDataFloat {
+    private func L2Normalize(vectors: MatrixDataIO) -> MatrixDataIO {
         return vectors.map { vector in 
-            let sqrtSumSquared:DataFloat = sqrt(vector.reduce(0, { $0 + ($1 * $1) }))
-            return vector.map{ $0 / sqrtSumSquared }
+            let sqrtSumSquared:DataFloat = sqrt(vector.reduce(0, { $0 + ($1.toDataFloat()! * $1.toDataFloat()!) }))
+            return vector.map{ .DataFloat(value: $0.toDataFloat()! / sqrtSumSquared) }
         }
     }
 }
