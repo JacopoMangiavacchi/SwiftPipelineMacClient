@@ -196,6 +196,11 @@ public struct BOW : TransformProtocol, Codable {
         
         //Filter Bow with minCount
         bow = bow.filter{ $0.value.0 >= minCount }
+        pos = -1
+        bow = bow.mapValues {
+            pos += 1
+            return ($0.0, $0.1, pos)
+        }
 
         //Create Features Vectors with BOW TF-IDF values
         var vectors = MatrixDataIO(repeating: VectorDataIO(repeating: .DataFloat(value: 0.0), count: bow.count), count: input.count)
